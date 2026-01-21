@@ -8,6 +8,20 @@ export default function Home() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
 
+  {
+    /* 
+  car
+year make model owner vin
+
+owner
+full name
+phone number
+address
+email
+
+  */
+  }
+
   async function decodeVin() {
     if (vin.length !== 17) {
       setError("VIN must be 17 characters");
@@ -20,9 +34,10 @@ export default function Home() {
 
     try {
       const res = await fetch(
-        `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValues/${vin}?format=json`,
+        `https://vpic.nhtsa.dot.gov/api/vehicles/DecodeVinValuesExtended/${vin}?format=json`,
       );
       const data = await res.json();
+      console.log(data);
       setVehicle(data.Results[0]);
     } catch (err) {
       setError("Failed to fetch VIN data");
